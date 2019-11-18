@@ -1,11 +1,11 @@
 # Cachet Badger
 
-A badge generator for Laravel 5.
+A badge generator for Laravel 5 and 6.
 
 
 ## Installation
 
-This version requires [PHP](https://php.net) 7.1 - 7.3, and supports Laravel 5.5 - 5.8 only.
+This version requires [PHP](https://php.net) 7.1 - 7.3, and supports Laravel 5.5 and above.
 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org):
 
