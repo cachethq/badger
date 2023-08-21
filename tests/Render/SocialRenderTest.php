@@ -1,62 +1,28 @@
 <?php
 
-declare(strict_types=1);
+use Cachet\Badger\Badge;
+use Cachet\Badger\Render\SocialRender;
 
-/*
- * This file is part of Cachet Badger.
- *
- * (c) apilayer GmbH
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+it('can get supported formats', function () {
+    $svgRender = getSvgRenderer(SocialRender::class);
 
-namespace CachetHQ\Tests\Badger\Render;
+    expect($svgRender->getSupportedFormats())->toMatchArray(['social']);
+});
 
-use CachetHQ\Badger\Badge;
-use CachetHQ\Badger\Calculator\GDTextSizeCalculator;
-use CachetHQ\Badger\Render\SocialRender;
-use GrahamCampbell\TestBench\AbstractTestCase;
+it('can render alt three awesome yellow green', function () {
+    $svgRender = getSvgRenderer(SocialRender::class);
+    $badge = new Badge('Alt Three', 'Awesome', 'yellowgreen', 'svg');
+    $badgeImage = $svgRender->render($badge);
 
-/**
- * This is the social render test case class.
- *
- * @author James Brooks <james@alt-three.com>
- * @author Graham Campbell <graham@alt-three.com>
- */
-class SocialRenderTest extends AbstractTestCase
-{
-    public function testGetSupportedFormats()
-    {
-        $svgRender = $this->getSocialRenderer();
+    expect($badgeImage)->toMatchSnapshot();
+    expect($badgeImage->getFormat())->toBe('svg');
+});
 
-        $this->assertSame(['social'], $svgRender->getSupportedFormats());
-    }
+it('can render alt three dead red', function () {
+    $svgRender = getSvgRenderer(SocialRender::class);
+    $badge = new Badge('Alt Three', 'Dead', 'red', 'svg');
+    $badgeImage = $svgRender->render($badge);
 
-    public function testRenderAltThreeAwesomeBrightGreen()
-    {
-        $svgRender = $this->getSocialRenderer();
-        $badge = new Badge('Alt Three', 'Awesome', 'yellowgreen', 'svg');
-        $badgeImage = $svgRender->render($badge);
-
-        $this->assertSame($this->getStubFile('alt-three-yellowgreen-social.svg'), (string) $badgeImage);
-        $this->assertSame('svg', $badgeImage->getFormat());
-    }
-
-    protected function getSocialRenderer()
-    {
-        $base = __DIR__.'/../../resources/';
-
-        $calculator = new GDTextSizeCalculator(realpath($base.'fonts/DejaVuSans.ttf'));
-        $path = $base.'templates';
-
-        return new SocialRender($calculator, realpath($path));
-    }
-
-    protected function getStubFile($file)
-    {
-        $path = realpath(__DIR__.'/stubs');
-
-        return file_get_contents($path.'/'.$file);
-    }
-}
+    expect($badgeImage)->toMatchSnapshot();
+    expect($badgeImage->getFormat())->toBe('svg');
+});

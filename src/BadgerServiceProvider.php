@@ -1,41 +1,22 @@
 <?php
 
-declare(strict_types=1);
+namespace Cachet\Badger;
 
-/*
- * This file is part of Cachet Badger.
- *
- * (c) apilayer GmbH
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace CachetHQ\Badger;
-
-use CachetHQ\Badger\Calculator\GDTextSizeCalculator;
-use CachetHQ\Badger\Calculator\TextSizeCalculatorInterface;
-use CachetHQ\Badger\Render\FlatSquareRender;
-use CachetHQ\Badger\Render\PlasticFlatRender;
-use CachetHQ\Badger\Render\PlasticRender;
-use CachetHQ\Badger\Render\SocialRender;
+use Cachet\Badger\Calculator\GDTextSizeCalculator;
+use Cachet\Badger\Calculator\TextSizeCalculatorInterface;
+use Cachet\Badger\Render\FlatSquareRender;
+use Cachet\Badger\Render\PlasticFlatRender;
+use Cachet\Badger\Render\PlasticRender;
+use Cachet\Badger\Render\SocialRender;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
-/**
- * This is the badger service provider class.
- *
- * @author James Brooks <james@alt-three.com>
- * @author Graham Campbell <graham@alt-three.com>
- */
 class BadgerServiceProvider extends ServiceProvider
 {
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerCalculator();
         $this->registerBadger();
@@ -43,10 +24,8 @@ class BadgerServiceProvider extends ServiceProvider
 
     /**
      * Register the calculator class.
-     *
-     * @return void
      */
-    protected function registerCalculator()
+    protected function registerCalculator(): void
     {
         $this->app->singleton(TextSizeCalculatorInterface::class, function () {
             $path = __DIR__.'/../resources/fonts/DejaVuSans.ttf';
@@ -59,10 +38,8 @@ class BadgerServiceProvider extends ServiceProvider
 
     /**
      * Register the badger class.
-     *
-     * @return void
      */
-    protected function registerBadger()
+    protected function registerBadger(): void
     {
         $this->app->singleton(Badger::class, function (Container $app) {
             $calculator = $app->make('badger.calculator');
@@ -83,10 +60,8 @@ class BadgerServiceProvider extends ServiceProvider
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return string[]
      */
-    public function provides()
+    public function provides(): array
     {
         return [
             'badger',

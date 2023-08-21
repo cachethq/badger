@@ -2,10 +2,9 @@
 
 A badge generator for Laravel 5 and 6.
 
-
 ## Installation
 
-This version requires [PHP](https://php.net) 7.1 - 7.3, and supports Laravel 5.5 and above.
+This version requires [PHP](https://php.net) 8.0 and 8.1, and supports Laravel 8.0 and above.
 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org):
 
@@ -13,16 +12,14 @@ To get the latest version, simply require the project using [Composer](https://g
 $ composer require cachethq/badger
 ```
 
-Once installed, if you are not using automatic package discovery, then you need to register the `CachetHQ\Badger\BadgerServiceProvider` service provider in your `config/app.php`.
-
+Once installed, if you are not using automatic package discovery, then you need to register the `Cachet\Badger\BadgerServiceProvider` service provider in your `config/app.php`.
 
 ## Examples
-
 
 Get started immediately:
 
 ```php
-// Using the facade
+// Using the Facade
 Badger::generate('license', 'MIT', 'blue', 'plastic')
 
 // Dependency injection example
@@ -31,7 +28,6 @@ $badger->generate('license', 'MIT', '#ff69b4', 'plastic')
 
 ![License Blue MIT](https://cdn.rawgit.com/CachetHQ/Badger/master/tests/stubs/license-MIT-blue-plastic.svg)
 ![License Custom MIT](https://cdn.rawgit.com/CachetHQ/Badger/master/tests/stubs/license-MIT-custom-plastic.svg)
-
 
 ## Usage
 
@@ -60,11 +56,9 @@ And finally the fourth parameter is the badge type. This determines the style of
 - `plastic`
 - `social` (without links)
 
-
 ## Security
 
 If you discover a security vulnerability within this package, please e-mail us at support@cachethq.io. All security vulnerabilities will be promptly addressed.
-
 
 ## License
 

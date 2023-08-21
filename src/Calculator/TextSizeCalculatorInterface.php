@@ -1,24 +1,7 @@
 <?php
 
-declare(strict_types=1);
+namespace Cachet\Badger\Calculator;
 
-/*
- * This file is part of Cachet Badger.
- *
- * (c) apilayer GmbH
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace CachetHQ\Badger\Calculator;
-
-/**
- * This is the text size calculator interface.
- *
- * @author James Brooks <james@alt-three.com>
- * @author Graham Campbell <graham@alt-three.com>
- */
 interface TextSizeCalculatorInterface
 {
     /**
@@ -44,11 +27,6 @@ interface TextSizeCalculatorInterface
 
     /**
      * Calculate the width of the text box.
-     *
-     * @param string   $text
-     * @param int|null $size
-     *
-     * @return float
      */
-    public function calculateWidth(string $text, int $size = null);
+    public function calculateWidth(string $text, int $size = null): float;
 }

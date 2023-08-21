@@ -1,74 +1,47 @@
 <?php
 
-declare(strict_types=1);
+namespace Cachet\Badger;
 
-/*
- * This file is part of Cachet Badger.
- *
- * (c) apilayer GmbH
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace CachetHQ\Badger;
-
-use CachetHQ\Badger\Exceptions\InvalidHexColorException;
+use Cachet\Badger\Exceptions\InvalidHexColorException;
 use InvalidArgumentException;
 
-/**
- * This is the badge class.
- *
- * @author James Brooks <james@alt-three.com>
- * @author Graham Campbell <graham@alt-three.com>
- */
 class Badge
 {
     /**
      * The left side of the badge.
-     *
-     * @var string
      */
-    protected $subject;
+    protected string $subject;
 
     /**
      * The right side of the badge.
-     *
-     * @var string
      */
-    protected $status;
+    protected string $status;
 
     /**
      * The color of the badge.
-     *
-     * @var string
      */
-    protected $color;
+    protected string $color;
 
     /**
      * The format of the badge.
-     *
-     * @var string
      */
-    protected $format;
+    protected string $format;
 
     /**
      * The default colors to map strings to.
-     *
-     * @var array
      */
-    protected $colorMap = [
+    protected array $colorMap = [
         'brightgreen' => '4c1',
-        'green'       => '97CA00',
-        'yellow'      => 'dfb317',
+        'green' => '97CA00',
+        'yellow' => 'dfb317',
         'yellowgreen' => 'a4a61d',
-        'orange'      => 'fe7d37',
-        'red'         => 'e05d44',
-        'blue'        => '007ec6',
-        'grey'        => '555',
-        'gray'        => '555',
-        'lightgrey'   => '9f9f9f',
-        'lightgray'   => '9f9f9f',
+        'orange' => 'fe7d37',
+        'red' => 'e05d44',
+        'blue' => '007ec6',
+        'grey' => '555',
+        'gray' => '555',
+        'lightgrey' => '9f9f9f',
+        'lightgray' => '9f9f9f',
     ];
 
     /**
@@ -81,23 +54,16 @@ class Badge
     /**
      * Create a new badge instance.
      *
-     * @param string      $subject
-     * @param string      $status
-     * @param string      $color
-     * @param string|null $format
-     *
-     * @throws \CachetHQ\Badger\Exceptions\InvalidHexColorException
-     *
-     * @return void
+     * @throws \Cachet\Badger\Exceptions\InvalidHexColorException
      */
     public function __construct(string $subject, string $status, string $color, string $format = null)
     {
         $this->subject = htmlspecialchars($subject, ENT_XML1, 'UTF-8');
         $this->status = htmlspecialchars($status, ENT_XML1, 'UTF-8');
-        $this->color = $this->getColorMapOrAsHex($color);
+        $this->color = $this->colorMapOrAsHex($color);
         $this->format = $format ?: static::DEFAULT_FORMAT;
 
-        if (!$this->isValidHex($this->color)) {
+        if (! $this->isValidHex($this->color)) {
             throw new InvalidHexColorException('The color argument "'.$this->color.'" is invalid.');
         }
     }
@@ -106,12 +72,8 @@ class Badge
      * Generates a badge from a string format.
      *
      * Example: I_m-liuggio-yellow.svg
-     *
-     * @param string $format
-     *
-     * @return \CachetHQ\Badger\Badge
      */
-    public static function fromString(string $format)
+    public static function fromString(string $format): Badge
     {
         if (preg_match('/^(([^-]|--)+)-(([^-]|--)+)-(([^-]|--)+)\.(svg|png|gif|jpg)$/', $format, $match) === false && (7 != count($match))) {
             throw new InvalidArgumentException('The given format string is invalid: '.$format);
@@ -126,61 +88,49 @@ class Badge
     }
 
     /**
-     * Return the subject.
-     *
-     * @return string
+     * Get the subject.
      */
-    public function getSubject()
+    public function subject(): string
     {
         return $this->subject;
     }
 
     /**
-     * Return the status.
-     *
-     * @return string
+     * Get the status.
      */
-    public function getStatus()
+    public function status(): string
     {
         return $this->status;
     }
 
     /**
-     * Return the color.
-     *
-     * @return string
+     * Get the color.
      */
-    public function getColor()
+    public function color(): string
     {
         return ltrim($this->color, '#');
     }
 
     /**
-     * Return the color with the prefixed #.
-     *
-     * @return string
+     * Get the color with the prefixed #.
      */
-    public function getHexColor()
+    public function hexColor(): string
     {
-        return '#'.$this->getColor();
+        return '#'.$this->color();
     }
 
     /**
-     * Return the format.
-     *
-     * @return string
+     * Get the format.
      */
-    public function getFormat()
+    public function format(): string
     {
         return $this->format;
     }
 
     /**
      * Generate the badge as a string.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf('%s-%s-%s.%s',
             $this->subject,
@@ -191,25 +141,17 @@ class Badge
     }
 
     /**
-     * Check if the color is within the color map, or return it as normal.
-     *
-     * @param string $color
-     *
-     * @return string
+     * Determine if the color is within the color map, or return it as normal.
      */
-    protected function getColorMapOrAsHex(string $color)
+    protected function colorMapOrAsHex(string $color): string
     {
         return isset($this->colorMap[$color]) ? $this->colorMap[$color] : $color;
     }
 
     /**
-     * Determins if the given color is a valid hex code.
-     *
-     * @param string $color
-     *
-     * @return bool
+     * Determine if the given color is a valid hex code.
      */
-    protected function isValidHex(string $color)
+    protected function isValidHex(string $color): bool
     {
         $color = ltrim($color, '#'); // Strip the leading #
 

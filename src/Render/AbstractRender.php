@@ -1,59 +1,30 @@
 <?php
 
-declare(strict_types=1);
+namespace Cachet\Badger\Render;
 
-/*
- * This file is part of Cachet Badger.
- *
- * (c) apilayer GmbH
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+use Cachet\Badger\Badge;
+use Cachet\Badger\BadgeImage;
+use Cachet\Badger\Calculator\TextSizeCalculatorInterface;
 
-namespace CachetHQ\Badger\Render;
-
-use CachetHQ\Badger\Badge;
-use CachetHQ\Badger\BadgeImage;
-use CachetHQ\Badger\Calculator\TextSizeCalculatorInterface;
-
-/**
- * This is the abstract render class.
- *
- * @author James Brooks <james@alt-three.com>
- * @author Graham Campbell <graham@alt-three.com>
- */
 abstract class AbstractRender implements RenderInterface
 {
     /**
      * The text size calculator instance.
-     *
-     * @var \CachetHQ\Badger\Calculator\TextSizeCalculatorInterface
      */
-    protected $calculator;
+    protected TextSizeCalculatorInterface $calculator;
 
     /**
      * The path to the template folder.
-     *
-     * @var string
      */
-    protected $path;
+    protected string $path;
 
     /**
      * The vendor color of the badge.
-     *
-     * @var string
      */
-    protected $color;
+    protected string $color;
 
     /**
      * Create a new svg render instance.
-     *
-     * @param \CachetHQ\Badger\Calculator\TextSizeCalculatorInterface $calculator
-     * @param string                                                  $path
-     * @param string|null                                             $color
-     *
-     * @return void
      */
     public function __construct(TextSizeCalculatorInterface $calculator, string $path, string $color = null)
     {
@@ -64,52 +35,39 @@ abstract class AbstractRender implements RenderInterface
 
     /**
      * Render a badge.
-     *
-     * @param \CachetHQ\Badger\Badge $badge
-     *
-     * @return \CachetHQ\Badger\BadgeImage
      */
-    public function render(Badge $badge)
+    public function render(Badge $badge): BadgeImage
     {
-        $subjectWidth = $this->stringWidth($badge->getSubject());
-        $statusWidth = $this->stringWidth($badge->getStatus());
+        $subjectWidth = $this->stringWidth($badge->subject());
+        $statusWidth = $this->stringWidth($badge->status());
 
         $params = [
-            'vendorWidth'         => $subjectWidth,
-            'valueWidth'          => $statusWidth,
-            'totalWidth'          => $subjectWidth + $statusWidth,
-            'vendorColor'         => $this->color,
-            'valueColor'          => $badge->getHexColor(),
-            'vendor'              => $badge->getSubject(),
-            'value'               => $badge->getStatus(),
+            'vendorWidth' => $subjectWidth,
+            'valueWidth' => $statusWidth,
+            'totalWidth' => $subjectWidth + $statusWidth,
+            'vendorColor' => $this->color,
+            'valueColor' => $badge->hexColor(),
+            'vendor' => $badge->subject(),
+            'value' => $badge->status(),
             'vendorStartPosition' => round($subjectWidth / 2, 1) + 1,
-            'valueStartPosition'  => $subjectWidth + round($statusWidth / 2, 1) - 1,
+            'valueStartPosition' => $subjectWidth + round($statusWidth / 2, 1) - 1,
         ];
 
-        return $this->renderSvg($params, $badge->getFormat());
+        return $this->renderSvg($params, $badge->format());
     }
 
     /**
-     * Returns the string width.
-     *
-     * @param string $text
-     *
-     * @return float
+     * Calculate the width of a string.
      */
-    protected function stringWidth($text)
+    protected function stringWidth(string $text): float
     {
         return $this->calculator->calculateWidth($text);
     }
 
     /**
      * Render the badge from the parameters and format given.
-     *
-     * @param array  $params
-     * @param string $format
-     *
-     * @return \CachetHQ\Badger\BadgeImage
      */
-    protected function renderSvg(array $params, $format)
+    protected function renderSvg(array $params, string $format): BadgeImage
     {
         $template = file_get_contents($this->path.'/'.$this->getTemplate());
 
