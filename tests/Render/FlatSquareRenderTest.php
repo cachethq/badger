@@ -1,72 +1,28 @@
 <?php
 
-declare(strict_types=1);
+use Cachet\Badger\Badge;
+use Cachet\Badger\Render\FlatSquareRender;
 
-/*
- * This file is part of Cachet Badger.
- *
- * (c) apilayer GmbH
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+it('can get supported formats', function () {
+    $svgRender = getSvgRenderer(FlatSquareRender::class);
 
-namespace CachetHQ\Tests\Badger\Render;
+    expect($svgRender->getSupportedFormats())->toMatchArray(['flat-square']);
+});
 
-use CachetHQ\Badger\Badge;
-use CachetHQ\Badger\Calculator\GDTextSizeCalculator;
-use CachetHQ\Badger\Render\FlatSquareRender;
-use GrahamCampbell\TestBench\AbstractTestCase;
+it('can render alt three awesome bright green', function () {
+    $svgRender = getSvgRenderer(FlatSquareRender::class);
+    $badge = new Badge('Alt Three', 'Awesome', 'brightgreen', 'svg');
+    $badgeImage = $svgRender->render($badge);
 
-/**
- * This is the flat square render test case class.
- *
- * @author James Brooks <james@alt-three.com>
- * @author Graham Campbell <graham@alt-three.com>
- */
-class FlatSquareRenderTest extends AbstractTestCase
-{
-    public function testGetSupportedFormats()
-    {
-        $svgRender = $this->getSvgRenderer();
+    expect($badgeImage)->toMatchSnapshot();
+    expect($badgeImage->getFormat())->toBe('svg');
+});
 
-        $this->assertSame(['flat-square'], $svgRender->getSupportedFormats());
-    }
+it('can render alt three dead red', function () {
+    $svgRender = getSvgRenderer(FlatSquareRender::class);
+    $badge = new Badge('Alt Three', 'Dead', 'red', 'svg');
+    $badgeImage = $svgRender->render($badge);
 
-    public function testRenderAltThreeAwesomeBrightGreen()
-    {
-        $svgRender = $this->getSvgRenderer();
-        $badge = new Badge('Alt Three', 'Awesome', 'brightgreen', 'svg');
-        $badgeImage = $svgRender->render($badge);
-
-        $this->assertSame($this->getStubFile('alt-three-awesome-brightgreen-flat-square.svg'), (string) $badgeImage);
-        $this->assertSame('svg', $badgeImage->getFormat());
-    }
-
-    public function testRenderAltThreeDeadRed()
-    {
-        $svgRender = $this->getSvgRenderer();
-        $badge = new Badge('Alt Three', 'Dead', 'red', 'svg');
-        $badgeImage = $svgRender->render($badge);
-
-        $this->assertSame($this->getStubFile('alt-three-dead-red-flat-square.svg'), (string) $badgeImage);
-        $this->assertSame('svg', $badgeImage->getFormat());
-    }
-
-    protected function getSvgRenderer()
-    {
-        $base = __DIR__.'/../../resources/';
-
-        $calculator = new GDTextSizeCalculator(realpath($base.'fonts/DejaVuSans.ttf'));
-        $path = $base.'templates';
-
-        return new FlatSquareRender($calculator, realpath($path));
-    }
-
-    protected function getStubFile($file)
-    {
-        $path = realpath(__DIR__.'/stubs');
-
-        return file_get_contents($path.'/'.$file);
-    }
-}
+    expect($badgeImage)->toMatchSnapshot();
+    expect($badgeImage->getFormat())->toBe('svg');
+});

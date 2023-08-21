@@ -1,46 +1,21 @@
 <?php
 
-declare(strict_types=1);
+namespace Cachet\Badger;
 
-/*
- * This file is part of Cachet Badger.
- *
- * (c) apilayer GmbH
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace CachetHQ\Badger;
-
-/**
- * This is the badge image class.
- *
- * @author James Brooks <james@alt-three.com>
- */
 class BadgeImage
 {
     /**
      * The content of the image.
-     *
-     * @var string
      */
-    protected $content;
+    protected string $content;
 
     /**
      * The format of the image.
-     *
-     * @var string
      */
-    protected $format;
+    protected string $format;
 
     /**
      * Create a new badge image instance.
-     *
-     * @param string $content
-     * @param string $format
-     *
-     * @return void
      */
     public function __construct(string $content, string $format)
     {
@@ -50,33 +25,24 @@ class BadgeImage
 
     /**
      * Returns the content of the badge image as a string.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return (string) $this->content;
+        return $this->content;
     }
 
     /**
      * Creates a new badge image from a given string.
-     *
-     * @param string $content
-     * @param string $format
-     *
-     * @return \CachetHQ\Badger\BadgeImage
      */
-    public static function createFromString(string $content, string $format)
+    public static function createFromString(string $content, string $format): self
     {
         return new self($content, $format);
     }
 
     /**
      * Returns the format of the image.
-     *
-     * @return string
      */
-    public function getFormat()
+    public function getFormat(): string
     {
         return $this->format;
     }
