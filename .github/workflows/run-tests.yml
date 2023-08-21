@@ -9,16 +9,15 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        php: [8.2, 8.1]
+        php: [8.2, 8.1, 8.0]
         laravel: [10.*, 9.*]
         stability: [prefer-lowest, prefer-stable]
+        pest: ^2.13
         include:
           - laravel: 10.*
             testbench: 8.*
-            pest: ^2.13
           - laravel: 9.*
             testbench: 7.*
-            pest: ^1.0
         exclude:
           - laravel: 10.*
             php: 8.0
