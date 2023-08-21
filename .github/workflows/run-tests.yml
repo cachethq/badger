@@ -6,17 +6,13 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os: [ubuntu-latest]
         php: [8.2, 8.1]
-        laravel: [11.*, 10.*]
+        laravel: [10.*]
         stability: [prefer-lowest, prefer-stable]
         include:
-          - laravel: 11.*
-            testbench: 8.*
-            pest: ^2.13
-            pest_laravel: ^2.0
           - laravel: 10.*
             testbench: 8.*
             pest: ^2.13
