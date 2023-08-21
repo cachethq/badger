@@ -1,6 +1,6 @@
 # Cachet Badger
 
-A badge generator for Laravel 5 and 6.
+A badge generator for Laravel 8.0 and above.
 
 ## Installation
 
@@ -25,9 +25,6 @@ Badger::generate('license', 'MIT', 'blue', 'plastic')
 // Dependency injection example
 $badger->generate('license', 'MIT', '#ff69b4', 'plastic')
 ```
-
-![License Blue MIT](https://cdn.rawgit.com/CachetHQ/Badger/master/tests/stubs/license-MIT-blue-plastic.svg)
-![License Custom MIT](https://cdn.rawgit.com/CachetHQ/Badger/master/tests/stubs/license-MIT-custom-plastic.svg)
 
 ## Usage
 
