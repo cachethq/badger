@@ -1,6 +1,6 @@
 # Cachet Badger
 
-A badge generator for Laravel 8.0 and above.
+An SVG badge generator for Laravel.
 
 ## Installation
 
