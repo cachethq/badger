@@ -1,16 +1,20 @@
 name: run-tests
 
-on: [push, pull_request]
+on:
+  - push
+  - pull_request
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [8.2, 8.1]
-        laravel: [10.*]
+        php: [8.2]
+        laravel: ['11.*']
+        testbench: ['9.*']
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 10.*
