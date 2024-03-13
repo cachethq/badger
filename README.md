@@ -4,12 +4,12 @@ An SVG badge generator for Laravel.
 
 ## Installation
 
-This version requires [PHP](https://php.net) 8.0 and 8.1, and supports Laravel 8.0 and above.
+This version requires [PHP](https://php.net) 8.2 and Laravel 11.0 and above. For older versions of PHP or Laravel, check out the [3.x](https://github.com/cachethq/badger/tree/3.x) branch.
 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require cachethq/badger
+composer require cachethq/badger
 ```
 
 Once installed, if you are not using automatic package discovery, then you need to register the `Cachet\Badger\BadgerServiceProvider` service provider in your `config/app.php`.
