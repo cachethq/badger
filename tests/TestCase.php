@@ -28,7 +28,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageAliases($app)
     {
         return [
-            'Badger' => 'Cachet\Badger\Facades\Badger',
+            'Badger' => 'Cachet\\Badger\\Facades\\Badger',
         ];
     }
 }
