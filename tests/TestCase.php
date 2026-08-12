@@ -2,6 +2,9 @@
 
 namespace Cachet\Tests\Badger;
 
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
@@ -9,8 +12,8 @@ abstract class TestCase extends Orchestra
     /**
      * Get package providers.
      *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
+     * @param  Application  $app
+     * @return array<int, class-string<ServiceProvider>>
      */
     protected function getPackageProviders($app)
     {
@@ -22,8 +25,8 @@ abstract class TestCase extends Orchestra
     /**
      * Override application aliases.
      *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return array<string, class-string<\Illuminate\Support\Facades\Facade>>
+     * @param  Application  $app
+     * @return array<string, class-string<Facade>>
      */
     protected function getPackageAliases($app)
     {

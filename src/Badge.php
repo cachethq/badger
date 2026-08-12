@@ -54,7 +54,7 @@ class Badge
     /**
      * Create a new badge instance.
      *
-     * @throws \Cachet\Badger\Exceptions\InvalidHexColorException
+     * @throws InvalidHexColorException
      */
     public function __construct(string $subject, string $status, string $color, ?string $format = null)
     {
@@ -75,7 +75,7 @@ class Badge
      */
     public static function fromString(string $format): Badge
     {
-        if (preg_match('/^(([^-]|--)+)-(([^-]|--)+)-(([^-]|--)+)\.(svg|png|gif|jpg)$/', $format, $match) === false && (7 != count($match))) {
+        if (preg_match('/^(([^-]|--)+)-(([^-]|--)+)-(([^-]|--)+)\.(svg|png|gif|jpg)$/', $format, $match) === false && (count($match) != 7)) {
             throw new InvalidArgumentException('The given format string is invalid: '.$format);
         }
 

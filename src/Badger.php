@@ -10,14 +10,14 @@ class Badger
     /**
      * The available renderers.
      *
-     * @var \Cachet\Badger\Render\RenderInterface[]
+     * @var RenderInterface[]
      */
     protected array $renderers;
 
     /**
      * Create a new badger instance.
      *
-     * @param  \Cachet\Badger\Render\RenderInterface[]  $renderers
+     * @param  RenderInterface[]  $renderers
      */
     public function __construct(?array $renderers = null)
     {
@@ -61,7 +61,7 @@ class Badger
     /**
      * Returns the renderer for the given format.
      *
-     * @throws \Cachet\Badger\Exceptions\InvalidRendererException
+     * @throws InvalidRendererException
      */
     protected function getRendererForFormat(string $format): RenderInterface
     {
