@@ -5,6 +5,7 @@ namespace Cachet\Badger;
 use Cachet\Badger\Calculator\GDTextSizeCalculator;
 use Cachet\Badger\Calculator\TextSizeCalculatorInterface;
 use Cachet\Badger\Render\FlatSquareRender;
+use Cachet\Badger\Render\ForTheBadgeRender;
 use Cachet\Badger\Render\PlasticFlatRender;
 use Cachet\Badger\Render\PlasticRender;
 use Cachet\Badger\Render\SocialRender;
@@ -49,6 +50,7 @@ class BadgerServiceProvider extends ServiceProvider
                 new PlasticRender($calculator, $path),
                 new PlasticFlatRender($calculator, $path),
                 new FlatSquareRender($calculator, $path),
+                new ForTheBadgeRender($calculator, $path),
                 new SocialRender($calculator, $path),
             ];
 

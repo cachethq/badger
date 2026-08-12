@@ -19,7 +19,7 @@ class Badger
      *
      * @param  \Cachet\Badger\Render\RenderInterface[]  $renderers
      */
-    public function __construct(array $renderers = null)
+    public function __construct(?array $renderers = null)
     {
         foreach ($renderers as $renderer) {
             $this->addRenderFormat($renderer);

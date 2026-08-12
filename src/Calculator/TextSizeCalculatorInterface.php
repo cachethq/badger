@@ -28,5 +28,5 @@ interface TextSizeCalculatorInterface
     /**
      * Calculate the width of the text box.
      */
-    public function calculateWidth(string $text, int $size = null): float;
+    public function calculateWidth(string $text, ?int $size = null): float;
 }

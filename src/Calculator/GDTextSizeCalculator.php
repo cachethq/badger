@@ -20,7 +20,7 @@ class GDTextSizeCalculator implements TextSizeCalculatorInterface
     /**
      * Calculate the width of the text box.
      */
-    public function calculateWidth(string $text, int $size = null): float
+    public function calculateWidth(string $text, ?int $size = null): float
     {
         $size = round(($size ?: static::TEXT_SIZE) * 0.75, 1);
         $box = imagettfbbox($size, 0, $this->path, $text);

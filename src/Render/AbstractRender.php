@@ -26,7 +26,7 @@ abstract class AbstractRender implements RenderInterface
     /**
      * Create a new svg render instance.
      */
-    public function __construct(TextSizeCalculatorInterface $calculator, string $path, string $color = null)
+    public function __construct(TextSizeCalculatorInterface $calculator, string $path, ?string $color = null)
     {
         $this->calculator = $calculator;
         $this->path = $path;

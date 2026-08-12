@@ -56,7 +56,7 @@ class Badge
      *
      * @throws \Cachet\Badger\Exceptions\InvalidHexColorException
      */
-    public function __construct(string $subject, string $status, string $color, string $format = null)
+    public function __construct(string $subject, string $status, string $color, ?string $format = null)
     {
         $this->subject = htmlspecialchars($subject, ENT_XML1, 'UTF-8');
         $this->status = htmlspecialchars($status, ENT_XML1, 'UTF-8');
