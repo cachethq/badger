@@ -1,4 +1,24 @@
-# Cachet Badger
+<p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="art/cachet-badger-dark.svg">
+      <img alt="Cachet Badger" src="art/cachet-badger-light.svg">
+    </picture>
+</p>
+
+<p align="center">
+    <a href="https://github.com/cachethq/badger/actions">
+        <img src="https://github.com/cachethq/badger/workflows/run-tests/badge.svg" alt="Build Status">
+    </a>
+    <a href="https://packagist.org/packages/cachethq/badger">
+        <img src="https://img.shields.io/packagist/dt/cachethq/badger" alt="Total Downloads">
+    </a>
+    <a href="https://packagist.org/packages/cachethq/badger">
+        <img src="https://img.shields.io/packagist/v/cachethq/badger" alt="Latest Stable Version">
+    </a>
+    <a href="https://github.com/cachethq/badger/blob/5.x/LICENSE">
+        <img src="https://img.shields.io/packagist/l/cachethq/badger" alt="License">
+    </a>
+</p>
 
 An SVG badge generator for Laravel.
 
