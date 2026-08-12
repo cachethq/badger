@@ -15,8 +15,47 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine release branch
+        id: branch
+        run: |
+          branch=$(git branch -r --contains "$GITHUB_SHA" --format='%(refname:short)' | sed 's#^origin/##' | grep -E '^[0-9]+\.x$' | head -n1)
+          if [ -z "$branch" ]; then
+            echo "Could not find a release branch containing $GITHUB_SHA" >&2
+            exit 1
+          fi
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
+
+      - name: Fetch release notes
+        id: notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo 'body<<RELEASE_NOTES_EOF'
+            gh release view "$GITHUB_REF_NAME" --json body --jq .body
+            echo 'RELEASE_NOTES_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Switch to release branch
+        run: git checkout ${{ steps.branch.outputs.branch }}
+
+      - name: Update Changelog
+        uses: stefanzweifel/changelog-updater-action@v1
+        with:
+          latest-version: ${{ github.ref_name }}
+          release-notes: ${{ steps.notes.outputs.body }}
+
+      - name: Commit updated CHANGELOG
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: ${{ steps.branch.outputs.branch }}
+          commit_message: Update CHANGELOG
+          file_pattern: CHANGELOG.md

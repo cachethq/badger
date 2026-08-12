@@ -30,8 +30,8 @@ class ForTheBadgeRender extends AbstractRender
      */
     public function render(Badge $badge): BadgeImage
     {
-        $subject = mb_strtoupper($badge->subject());
-        $status = mb_strtoupper($badge->status());
+        $subject = $this->uppercase($badge->subject());
+        $status = $this->uppercase($badge->status());
 
         $subjectWidth = $this->sectionWidth($subject);
         $statusWidth = $this->sectionWidth($status);
@@ -49,6 +49,18 @@ class ForTheBadgeRender extends AbstractRender
         ];
 
         return $this->renderSvg($params, $badge->format());
+    }
+
+    /**
+     * Uppercase already XML-escaped text without corrupting its entities.
+     */
+    protected function uppercase(string $text): string
+    {
+        return htmlspecialchars(
+            mb_strtoupper(htmlspecialchars_decode($text, ENT_XML1)),
+            ENT_XML1,
+            'UTF-8'
+        );
     }
 
     /**
