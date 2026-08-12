@@ -1,6 +1,10 @@
 name: run-tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - '*.x'
+  pull_request:
 
 jobs:
   test:
@@ -9,20 +13,27 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [8.2, 8.1]
-        laravel: [10.*]
+        php: [8.2, 8.3, 8.4]
+        laravel: [12.*, 13.*]
         stability: [prefer-lowest, prefer-stable]
         include:
-          - laravel: 10.*
-            testbench: 8.*
-            pest: ^2.13
-            pest_laravel: ^2.0
+          - laravel: 12.*
+            testbench: 10.*
+            pest: ^3.0
+            pest_laravel: ^3.0
+          - laravel: 13.*
+            testbench: 11.*
+            pest: ^4.0
+            pest_laravel: ^4.0
+        exclude:
+          - laravel: 13.*
+            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

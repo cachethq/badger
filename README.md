@@ -4,7 +4,7 @@ An SVG badge generator for Laravel.
 
 ## Installation
 
-This version requires [PHP](https://php.net) 8.2 and Laravel 11.0 and above. For older versions of PHP or Laravel, check out the [3.x](https://github.com/cachethq/badger/tree/3.x) branch.
+This version requires [PHP](https://php.net) 8.2 and Laravel 12.0 and above. For older versions of PHP or Laravel, check out the [4.x](https://github.com/cachethq/badger/tree/4.x) branch.
 
 To get the latest version, simply require the project using [Composer](https://getcomposer.org):
 
@@ -46,12 +46,13 @@ The first parameter is the subject, or what it is the badge is showing. In the e
 - `grey`
 - `lightgray`
 
-And finally the fourth parameter is the badge type. This determines the style of the badge and can be one of the four values below.
+And finally the fourth parameter is the badge type. This determines the style of the badge and can be one of the five values below.
 
 - `flat-square` (default)
 - `plastic-flat`, `flat`
 - `plastic`
 - `social` (without links)
+- `for-the-badge`
 
 ## Security
 

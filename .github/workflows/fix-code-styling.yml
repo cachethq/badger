@@ -3,7 +3,7 @@ name: "Fix Code Styling"
 on:
   push:
     branches:
-      - master
+      - '*.x'
 
 jobs:
   lint:
